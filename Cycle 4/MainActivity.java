@@ -1,42 +1,34 @@
-package com.example.sjcet.register;
-
-
+package com.example.sjcet.message;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    EditText textBox;
+    Button passButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    public void register(View view) {
-        Intent i = new Intent(MainActivity.this, register.class);
-        startActivity(i);
-    }
+        textBox = (EditText)findViewById(R.id.textBox);
+        passButton = (Button)findViewById(R.id.passButton);
 
-    public void login(View view) {
-        EditText E1, E2;
-        E1 =(EditText) findViewById(R.id.eduname);
-        E2 = (EditText) findViewById(R.id.edpass);
+        passButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = textBox.getText().toString();
 
-        if ((E1.getText().toString().equals("admin")) && (E2.getText().toString().equals("admin")))
-        {
-            Intent i = new Intent(MainActivity.this,home.class);
-            startActivity(i);
-        }
+                Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                intent.putExtra("message", str);
 
-        else
-        {
-            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-        }
-
+                startActivity(intent);
+            }
+        });
     }
 }
